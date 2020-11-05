@@ -4,6 +4,15 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
+  <!--这是个父项目，可以点击去，一般是用来维护共用的依赖-->
+  <!--相当于父pom-->
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.3.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+
   <groupId>com.lj.test</groupId>
   <artifactId>SpringandJavaTest</artifactId>
   <version>1.0-SNAPSHOT</version>
@@ -12,13 +21,37 @@
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
+
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.7</maven.compiler.source>
     <maven.compiler.target>1.7</maven.compiler.target>
+    <java.version>1.8</java.version>
   </properties>
 
+  <!--注意pom之间的继承关系-->
   <dependencies>
+    <!--spring-boot-starter为spring的场景启动器，比如如果想用消息队列的话就是spring-boot-starter-activemq-->
+    <!--要用什么功能就用什么场景启动器-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
@@ -30,6 +63,10 @@
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
+        <plugin>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-maven-plugin</artifactId>
+        </plugin>
         <!-- clean lifecycle, see https://maven.apache.org/ref/current/maven-core/lifecycles.html#clean_Lifecycle -->
         <plugin>
           <artifactId>maven-clean-plugin</artifactId>
